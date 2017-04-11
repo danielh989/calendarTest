@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-</head>
-<body>
-
-
-	<script src="js/jquery.js" type="text/javascript"></script>
-	<script src="js/index.js" type="text/javascript"></script>
-</body>
+    <head>
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+        </link>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="form-group">
+                    <form id="filterForm" role="form">
+                        <div class="row">
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                <label for="startDate">Start Date</label>
+                                <input class="form-control" id="startDate" placeholder="e.g. 08/25/2008" type="text"></input>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                <label for="qtyDays">Number of days</label>
+                                <input class="form-control" id="qtyDays" placeholder="e.g. 2" type="number"></input>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                <label for="country">Country</label>
+                                <input class="form-control" id="country" placeholder="e.g. US" type="text"></input>
+                            </div>
+                            <button class="btn btn-primary" id="filterButton" style="margin-top:25px" type="submit">Filter</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="js/jquery.js" type="text/javascript">
+        </script>
+        <script src="js/index.js" type="text/javascript">
+        </script>
+    </body>
 </html>
