@@ -7,6 +7,7 @@ $(document).ready(function() {
         var qtyDays = $('#qtyDays').val();
         
         if (country !== "" && startDate !== "" && qtyDays !== "") {
+        	$("#calendarContainer").empty();
         	buildCalendar(country, startDate, qtyDays);
         }
 
@@ -23,7 +24,7 @@ $(document).ready(function() {
         data: {
             key: "62de9748-29e7-4702-a6f4-280d04bcde7f",
             country: country,
-            //Fixed to 2008 because of excercise requirement
+            //Fixed to 2008 because of exercise requirement
             year: "2008"
         },
         dataType: "json"
@@ -55,15 +56,20 @@ $(document).ready(function() {
                 previousMonth = start.getMonth();
 
                 //The template initializes with one week, we verify if the day is the 0 day of the week to generate a new week row to the last created month
-                if (start.getDay() == 0) $('body').find('.month tbody').last().append($monthTemplate.find('.week').first().clone());
+                var $lastCreatedMonth = $('body').find('.month tbody').last();
+                var $weekTemplate = $monthTemplate.find('.week').first().clone();
+                var SUNDAY = 0;
+                if (start.getDay() == SUNDAY) $lastCreatedMonth.append($weekTemplate);
 
 
                 //Looking for the cell class acording to the week day index, then append the day date.
-                $('.month').last().find('.week').last().find('.dayOfWeek' + start.getDay()).first().html(start.getDate());
-                $('.month').last().find('.week').last().find('.dayOfWeek' + start.getDay()).first().addClass('success');
+                var $currentDayCell = $('.month').last().find('.week').last().find('.dayOfWeek' + start.getDay()).first();
+                $currentDayCell.html(start.getDate());
+                $currentDayCell.addClass('success');
 
+                var SATURDAY = 6
                 //Comparing if the day is Sunday (0) or Saturday (6) to change its cell color
-                if (start.getDay() == 0 || start.getDay() == 6) $('.month').last().find('.week').last().find('.dayOfWeek' + start.getDay()).first().css('background-color', 'yellow');
+                if (start.getDay() == SUNDAY || start.getDay() == SATURDAY) $currentDayCell.css('background-color', 'yellow');
 
 
                 for (var i = 0; i < holidaysArr.length; i++) {
@@ -74,8 +80,9 @@ $(document).ready(function() {
                     if (currentHoliday.valueOf() == start.valueOf()) {
 
                     	//We create a link with the holiday description in a tooltip
-                        $('.month').last().find('.week').last().find('.dayOfWeek' + start.getDay()).first().html('<a href="#" title="' + holidaysArr[i]['name'] + '">' + start.getDate() + '</a>');
-                        $('.month').last().find('.week').last().find('.dayOfWeek' + start.getDay()).first().css('background-color', 'orange');
+                        $currentDayCell.html('<a href="#" title="' + holidaysArr[i]['name'] + '">' + start.getDate() + '</a>');
+                        $currentDayCell.css('background-color', 'orange');
+                        //We pop the holiday to avoid further comparing
                         holidaysArr.splice(i, 1);
                     }
                 }
