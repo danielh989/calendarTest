@@ -30,6 +30,17 @@ $(document).ready(function() {
         dataType: "json"
 	    });
 	    request.done(function(msg) {
+
+	    	if (msg.status==401){
+	    		alert("Please provide the API key.");
+	    		return;
+	    	} 
+
+	    	if (msg.status==401){
+	    		alert("The rate limit for this API key has been exceeded.");
+	    		return;
+	    	} 
+
 	    	//Holidays JSON object to array for future comparing
 	        var holidays = msg.holidays;
             holidaysArr = [];
@@ -93,7 +104,7 @@ $(document).ready(function() {
             }
 	    });
 	    request.fail(function(jqXHR, textStatus) {
-	        alert("Request failed: " + textStatus);
+	        alert("An error ocurred: " + textStatus);
 	    });
     }
 
