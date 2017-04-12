@@ -1,19 +1,21 @@
 $(document).ready(function() {
 
 	$("#filterForm").on('submit', function(e) {
-		
+
         var country = $('#country').val();
         var startDate = $('#startDate').val();
         var qtyDays = $('#qtyDays').val();
         
         if (country !== "" && startDate !== "" && qtyDays !== "") {
-
+        	buildCalendar(country, startDate, qtyDays);
         }
 
         e.preventDefault();
     });
 
-    var request = $.ajax({
+
+    function buildCalendar(country, startDate, qtyDays) {
+    	var request = $.ajax({
         url: "https://holidayapi.com/v1/holidays",
         method: "GET",
         data: {
@@ -22,13 +24,16 @@ $(document).ready(function() {
             year: "2008"
         },
         dataType: "json"
-    });
-    request.done(function(msg) {
-        console.log(msg)
-    });
-    request.fail(function(jqXHR, textStatus) {
-        alert("Request failed: " + textStatus);
-    });
+	    });
+	    request.done(function(msg) {
+	        console.log(msg)
+	    });
+	    request.fail(function(jqXHR, textStatus) {
+	        alert("Request failed: " + textStatus);
+	    });
+    }
+
+    
 
 
 
